@@ -58,5 +58,3 @@ const TaskItem = (props) => {
 }
 
 export default connect(null)(TaskItem)
-
-//onPress={() => props.navigation.navigate('TaskDetailView')}

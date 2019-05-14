@@ -11,8 +11,8 @@ class AllTasks extends Component {
     }
 
     handlePress=()=>{
-        this.props.navigation.popToTop();
-        this.props.navigation.goBack(null)
+        console.log("Clicked!");
+        
         this.props.navigation.navigate('TaskDetailView')
     }
     render() {
