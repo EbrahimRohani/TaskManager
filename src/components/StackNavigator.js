@@ -6,6 +6,7 @@ const MainStackNavigation = createStackNavigator({
     TaskCategorizationScreen,
     TaskDetailView,
     
+    
 },
 {
     headerMode:'none'
