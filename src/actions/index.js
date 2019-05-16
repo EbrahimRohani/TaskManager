@@ -1,6 +1,8 @@
 export const ADD_NEW_TASK = 'ADD_NEW_TASK'
 export const ON_FORM_UPDATE = 'ON_FORM_UPDATE'
 export const ON_CHECKBOX_UPDATE = 'ON_CHECKBOX_UPDATE'
+export const SELECT_TASK = 'SELECT_TASK'
+export const UPDATE_TASK = 'UPDATE_TASK'
 
 const uuidv4 = require('uuid/v4')
 
@@ -11,7 +13,7 @@ export const createNewTask = (title, description, isDone) => {
             id: uuidv4(),
             title,
             description,
-            'isDone' : isDone
+            isDone,
         }
     }
 }
@@ -24,8 +26,23 @@ export const onFormUpdate = ({ prop, value }) => {
 }
 
 export const onCheckBoxUpdate = (value) => {
-    return{
+    return {
         type: ON_CHECKBOX_UPDATE,
-        payload: {value}
+        payload: value
     }
-} 
+}
+
+export const selectTask = (task) => {
+    return {
+        type: SELECT_TASK,
+        payload: task
+    }
+}
+
+export const updateTask = (task, title, description, isDone) => {
+    return {
+        type: UPDATE_TASK,
+        //payload: Object.assign(task, {title, description, isDone} )
+        payload: {task, title, description, isDone}
+    }
+}

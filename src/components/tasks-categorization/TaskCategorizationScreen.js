@@ -14,11 +14,6 @@ export default class TaskCategorizationScreen extends Component {
             <Container>
                 <View style={{ flex: 1 }}>
                     <TaskTopTabNavigation />
-                    <Fab
-                        position='bottomRight'
-                        onPress={this.newTaskButtonHandler}>
-                        <Icon name='add'/>
-                    </Fab>
                 </View>
             </Container>
 

@@ -9,15 +9,15 @@ export class TaskDetailView extends Component {
   addNewTask = () => {
     const { title, description, isDone } = this.props;
     this.props.createNewTask(title, description, isDone)
-    this.props.navigation.navigate('TaskCategorizationScreen')
+    this.props.navigation.navigate('AllTasks')
   }
 
-  handleChange=()=>{
-    const isChecked = this.props.isDone
-    console.log(isChecked)
-    this.props.onCheckBoxUpdate(isChecked)
-  } 
-  
+  updateTask = (task) => {
+    const {title, description, isDone} = this.props
+    this.props.updateTask(task, title, description, isDone)
+    this.props.navigation.navigate('AllTasks')
+  }
+
   render() {
     return (
       <Container>
@@ -35,14 +35,14 @@ export class TaskDetailView extends Component {
             </Item>
 
             <ListItem last >
-              <CheckBox checked={this.props.isDone} onPress={this.handleChange} />
+              <CheckBox checked={this.props.isDone} onPress={() => this.props.onCheckBoxUpdate(this.props.isDone)} />
               <Body>
                 <Text>Done</Text>
               </Body>
             </ListItem>
 
-            <Button style={styles.submitButton} onPress={this.addNewTask}>
-              <Text>Submit</Text>
+            <Button style={styles.submitButton} onPress={this.props.toUpdate ? ()=>this.updateTask(this.props.selectedTask) : ()=>this.addNewTask() }>
+              <Text>{this.props.toUpdate ? "Apply Edit" : "Submit"}</Text>
             </Button>
 
           </Form>
@@ -53,7 +53,16 @@ export class TaskDetailView extends Component {
 }
 
 
-const { width} = Dimensions.get('window')
+const mapStateToProps = state => {
+  return {
+    title: state.title,
+    description: state.description,
+    isDone: state.isDone,
+    toUpdate: state.toUpdate,
+    selectedTask: state.selectedTask,
+  }
+}
+const { width } = Dimensions.get('window')
 
 const styles = StyleSheet.create({
   submitButton: {
@@ -64,12 +73,5 @@ const styles = StyleSheet.create({
   }
 })
 
-const mapStateToProps = state => {
-  return {
-    title: state.title,
-    description: state.description,
-    isDone: state.isDone,
-  }
-}
 
 export default connect(mapStateToProps, actions)(TaskDetailView)

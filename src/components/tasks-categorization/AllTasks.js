@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import TaskItem from '../task-item/TaskItem';
 import { NavigationActions, StackActions } from 'react-navigation';
 import NoTasksView from '../NoTasksView';
+import { Container, Fab, Icon } from 'native-base'
 
 class AllTasks extends Component {
 
@@ -11,32 +12,40 @@ class AllTasks extends Component {
         tabBarLabel: "All"
     }
 
-    handlePress = () => {
-        console.log("Clicked!");
-        this.props.navigation.navigate('TaskDetailView')
-    }
-
     initialRender = (tasks) => {
         if (tasks.length === 0) {
             return (
+                <View style={{flex:1}}>
                 <NoTasksView condition={'ALL'} />
+                <Fab
+                    position='bottomRight'
+                    onPress={() => this.props.navigation.navigate('TaskDetailView')}>
+                    <Icon name='add' />
+                </Fab>
+                </View>
             )
 
         } else {
 
             return (
-                <View>
+                <Container>
+                    <View style={{ flex: 1 }}>
 
-                    <Text onPress={() => this.handlePress()}>Testing Navigation...</Text>
-                    <FlatList
-                        keyExtractor={item => item.id}
-                        data={this.props.tasks}
-                        extraData={this.props}
-                        renderItem={({ item }) => <TaskItem navigation={this.props.navigation} task={item} />}>
+                        <FlatList
+                            keyExtractor={item => item.id}
+                            data={this.props.tasks}
+                            extraData={this.props}
+                            renderItem={({ item }) => <TaskItem navigation={this.props.navigation} task={item} />}>
 
-                    </FlatList>
+                        </FlatList>
+                        <Fab
+                            position='bottomRight'
+                            onPress={() => this.props.navigation.navigate('TaskDetailView')}>
+                            <Icon name='add' />
+                        </Fab>
 
-                </View>
+                    </View>
+                </Container>
             )
         }
     }

@@ -4,11 +4,12 @@ import { connect } from 'react-redux';
 import { Card, CardItem, Content, Body, Container, Button } from 'native-base';
 import Icon from 'react-native-vector-icons/EvilIcons'
 import { Dimensions } from 'react-native'
-import { StackActions, NavigationActions } from 'react-navigation';
-import MainStackNavigation from '../StackNavigator';
+import * as actions from '../../actions';
 
 const windowsWidth = Dimensions.get('window').width
 const windowsHeight = Dimensions.get('window').height
+
+//TODO: back button event must be handled
 
 const style = StyleSheet.create({
     viewStyle: {
@@ -19,12 +20,18 @@ const style = StyleSheet.create({
 
 })
 
+handleOnTaskItemPress = props => {
+    props.selectTask(props.task)
+    props.navigation.navigate('TaskDetailView')
+}
+
+
 const TaskItem = (props) => {
     return (
         <View style={style.viewStyle}>
             <Container>
                 <Content padder>
-                    <TouchableOpacity onPress={() => props.navigation.navigate('TaskDetailView')}>
+                    <TouchableOpacity onPress={() => this.handleOnTaskItemPress(props)}>
                         <Card>
                             <CardItem header bordered>
                                 <View style={{ flexDirection: 'row' }}>
@@ -57,4 +64,4 @@ const TaskItem = (props) => {
     )
 }
 
-export default connect(null)(TaskItem)
+export default connect(null, actions)(TaskItem)

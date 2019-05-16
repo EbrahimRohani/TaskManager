@@ -3,6 +3,7 @@ import { View, FlatList } from 'react-native'
 import { connect } from 'react-redux';
 import TaskItem from '../task-item/TaskItem';
 import NoTasksView from '../NoTasksView';
+import { Fab, Icon } from 'native-base';
 
 
 class DoneTasks extends Component {
@@ -12,16 +13,30 @@ class DoneTasks extends Component {
 
   initialRender = (tasks) => {
     if (tasks.length === 0) {
-      return <NoTasksView condition={'DONE'} />
+      return (<View style={{ flex: 1 }}>
+        <NoTasksView condition={'DONE'} />
+        <Fab
+          position='bottomRight'
+          onPress={() => this.props.navigation.navigate('TaskDetailView')}>
+          <Icon name='add' />
+        </Fab>
+      </View>)
 
     } else {
       return (
-        <View>
+        <View style={{ flex: 1 }}>
           <FlatList
             data={this.props.doneTasks}
             renderItem={({ item }) => <TaskItem navigation={this.props.navigation} task={item} />}
             keyExtractor={item => item.id}>
           </FlatList>
+
+          <Fab
+            position='bottomRight'
+            onPress={() => this.props.navigation.navigate('TaskDetailView')}>
+            <Icon name='add' />
+          </Fab>
+
         </View>
       )
     }
