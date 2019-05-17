@@ -13,8 +13,13 @@ export class TaskDetailView extends Component {
   }
 
   updateTask = (task) => {
-    const {id, title, description, isDone} = this.props
-    this.props.updateTask(id,task, title, description, isDone)
+    const { id, title, description, isDone } = this.props
+    this.props.updateTask(id, task, title, description, isDone)
+    this.props.navigation.navigate('AllTasks')
+  }
+
+  deleteTask = (task) =>{
+    this.props.deleteTask(task)
     this.props.navigation.navigate('AllTasks')
   }
 
@@ -41,13 +46,15 @@ export class TaskDetailView extends Component {
               </Body>
             </ListItem>
 
-            <Button style={styles.submitButton} onPress={this.props.toUpdate ? ()=>this.updateTask(this.props.selectedTask) : ()=>this.addNewTask() }>
+            <Button style={styles.submitButton} onPress={this.props.toUpdate ? () => this.updateTask(this.props.selectedTask) : () => this.addNewTask()}>
               <Text>{this.props.toUpdate ? "Apply Edit" : "Submit"}</Text>
             </Button>
 
-            <Button style={styles.deleteButton} danger={true}>
+            {this.props.toUpdate && 
+            <Button style={styles.deleteButton} danger={true} onPress={() => this.deleteTask(this.props.selectedTask)} >
               <Text>Delete</Text>
             </Button>
+            }
 
           </Form>
         </Content>
@@ -76,11 +83,11 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     justifyContent: 'center',
   },
-  deleteButton:{
-    marginTop:10,
+  deleteButton: {
+    marginTop: 10,
     flexDirection: 'column',
-    alignSelf:'center',
-    justifyContent:'center'
+    alignSelf: 'center',
+    justifyContent: 'center'
   }
 })
 

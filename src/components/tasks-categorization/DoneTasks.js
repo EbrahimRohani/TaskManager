@@ -50,12 +50,14 @@ class DoneTasks extends Component {
           <Button>
             {console.log(this.doneTasksList.doneTasks)}
             <Text>TESTING</Text>
-          </Button>
+          </Button> 
 
         </View>
       )
     }
   }
+
+  //! Button TESTING Must be deleted before push
 
   render() {
     return (

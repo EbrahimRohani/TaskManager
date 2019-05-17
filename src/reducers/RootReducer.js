@@ -58,9 +58,9 @@ export default (state = initialState, action) => {
 
             return {
                 ...state,
-                tasks: onItemUpdate(state, 'tasks', action),
-                doneTasks: onItemUpdate(state, 'doneTasks', action),
-                undoneTasks: onItemUpdate(state, 'undoneTasks', action),
+                tasks: onTaskUpdate(state, 'tasks', action),
+                doneTasks: onTaskUpdate(state, 'doneTasks', action),
+                undoneTasks: onTaskUpdate(state, 'undoneTasks', action),
                 id: '',
                 title: '',
                 description: '',
@@ -69,10 +69,16 @@ export default (state = initialState, action) => {
                 toUpdate: false,
             }
 
-        case actions.INITIAL_READING:
+        case actions.DELETE_TASK:
             return {
                 ...state,
-                tasks: action.payload
+                tasks: onTaskDelete(state, action),
+                id: '',
+                title: '',
+                description: '',
+                isDone: false,
+                selectedTask: '',
+                toUpdate: false,
             }
 
         default:
@@ -87,7 +93,7 @@ const newTask = (action) => {
 
 
 
-const onItemUpdate = (state, /* String */ tasks, action) => {
+const onTaskUpdate = (state, /* String */ tasks, action) => {
 
     const updatedItem = (action) => {
         const { title, description, isDone } = action.payload;
@@ -99,6 +105,14 @@ const onItemUpdate = (state, /* String */ tasks, action) => {
             return { ...task, ...updatedItem(action) }
         }
         return task
+    })
+}
+
+const onTaskDelete = (state, action) => {
+    return state.tasks.filter(task => {
+        if (task.id !== action.payload.id) {
+            return task;
+        }
     })
 }
 

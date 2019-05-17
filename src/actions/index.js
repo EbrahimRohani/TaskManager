@@ -4,6 +4,7 @@ export const ON_CHECKBOX_UPDATE = 'ON_CHECKBOX_UPDATE'
 export const SELECT_TASK = 'SELECT_TASK'
 export const UPDATE_TASK = 'UPDATE_TASK'
 export const INITIAL_READING = 'INITIAL_READING'
+export const DELETE_TASK = 'DELETE_TASK'
 
 const uuidv4 = require('uuid/v4')
 
@@ -47,10 +48,9 @@ export const updateTask = (id, task, title, description, isDone) => {
     }
 }
 
-export const initialReading=(tasks)=>{
-    return{
-        type: INITIAL_READING,
-        payload: tasks
-        
-    } //? Might be deleted?
+export const deleteTask = (task)=>{
+    return {
+        type: DELETE_TASK,
+        payload: task
+    }
 }
