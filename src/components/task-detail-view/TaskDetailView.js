@@ -13,8 +13,8 @@ export class TaskDetailView extends Component {
   }
 
   updateTask = (task) => {
-    const {title, description, isDone} = this.props
-    this.props.updateTask(task, title, description, isDone)
+    const {id, title, description, isDone} = this.props
+    this.props.updateTask(id,task, title, description, isDone)
     this.props.navigation.navigate('AllTasks')
   }
 
@@ -45,6 +45,10 @@ export class TaskDetailView extends Component {
               <Text>{this.props.toUpdate ? "Apply Edit" : "Submit"}</Text>
             </Button>
 
+            <Button style={styles.deleteButton} danger={true}>
+              <Text>Delete</Text>
+            </Button>
+
           </Form>
         </Content>
       </Container>
@@ -60,6 +64,7 @@ const mapStateToProps = state => {
     isDone: state.isDone,
     toUpdate: state.toUpdate,
     selectedTask: state.selectedTask,
+    id: state.id
   }
 }
 const { width } = Dimensions.get('window')
@@ -70,6 +75,12 @@ const styles = StyleSheet.create({
     marginTop: 10,
     alignSelf: 'center',
     justifyContent: 'center',
+  },
+  deleteButton:{
+    marginTop:10,
+    flexDirection: 'column',
+    alignSelf:'center',
+    justifyContent:'center'
   }
 })
 

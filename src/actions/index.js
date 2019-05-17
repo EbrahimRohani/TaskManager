@@ -3,6 +3,7 @@ export const ON_FORM_UPDATE = 'ON_FORM_UPDATE'
 export const ON_CHECKBOX_UPDATE = 'ON_CHECKBOX_UPDATE'
 export const SELECT_TASK = 'SELECT_TASK'
 export const UPDATE_TASK = 'UPDATE_TASK'
+export const INITIAL_READING = 'INITIAL_READING'
 
 const uuidv4 = require('uuid/v4')
 
@@ -39,10 +40,17 @@ export const selectTask = (task) => {
     }
 }
 
-export const updateTask = (task, title, description, isDone) => {
+export const updateTask = (id, task, title, description, isDone) => {
     return {
         type: UPDATE_TASK,
-        //payload: Object.assign(task, {title, description, isDone} )
-        payload: {task, title, description, isDone}
+        payload: {id, task, title, description, isDone}
     }
+}
+
+export const initialReading=(tasks)=>{
+    return{
+        type: INITIAL_READING,
+        payload: tasks
+        
+    } //? Might be deleted?
 }

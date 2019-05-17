@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/EvilIcons'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 
 
 handleTextMessage = (textCondition) => {

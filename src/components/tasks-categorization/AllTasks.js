@@ -12,16 +12,18 @@ class AllTasks extends Component {
         tabBarLabel: "All"
     }
 
+
+
     initialRender = (tasks) => {
         if (tasks.length === 0) {
             return (
-                <View style={{flex:1}}>
-                <NoTasksView condition={'ALL'} />
-                <Fab
-                    position='bottomRight'
-                    onPress={() => this.props.navigation.navigate('TaskDetailView')}>
-                    <Icon name='add' />
-                </Fab>
+                <View style={{ flex: 1 }}>
+                    <NoTasksView condition={'ALL'} />
+                    <Fab
+                        position='bottomRight'
+                        onPress={() => this.props.navigation.navigate('TaskDetailView')}>
+                        <Icon name='add' />
+                    </Fab>
                 </View>
             )
 

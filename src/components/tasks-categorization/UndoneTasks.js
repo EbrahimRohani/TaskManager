@@ -3,11 +3,20 @@ import { View, FlatList } from 'react-native'
 import { connect } from 'react-redux';
 import TaskItem from '../task-item/TaskItem';
 import NoTasksView from '../NoTasksView';
-import { Container, Fab, Icon } from 'native-base';
+import { Fab, Icon } from 'native-base';
 
 class UndoneTasks extends Component {
   static navigationOptions = {
     tabBarLabel: "Undone"
+  }
+
+  undoneTaskList = {
+    undoneTasks: this.props.tasks.filter(task => {
+      if (task.isDone === false) {
+        return task
+      }
+    })
+
   }
 
   initialRender = (tasks) => {
@@ -25,7 +34,7 @@ class UndoneTasks extends Component {
       return (
         <View style={{ flex: 1 }}>
           <FlatList
-            data={this.props.undoneTasks}
+            data={this.undoneTaskList.undoneTasks}
             renderItem={({ item }) => <TaskItem navigation={this.props.navigation} task={item} />}
             keyExtractor={item => item.id}>
           </FlatList>
@@ -43,14 +52,15 @@ class UndoneTasks extends Component {
 
   render() {
     return (
-      this.initialRender(this.props.undoneTasks)
+      this.initialRender(this.undoneTaskList.undoneTasks)
     )
   }
 }
 
 mapStateToProps = state => {
   return {
-    undoneTasks: state.undoneTasks
+    tasks: state.tasks,
+    undoneTasks: state.undoneTasks //TODO: must be ommited
   }
 }
 

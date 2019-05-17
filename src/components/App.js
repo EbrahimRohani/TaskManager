@@ -18,7 +18,7 @@ export default class App extends Component<Props> {
   render() {
     return (
       <Provider store={store} >
-        <PersistGate loading={<LoadingView/>} persistor={persistor}>
+        <PersistGate loading={<LoadingView />} persistor={persistor}>
           <MainStackNavigation />
         </PersistGate>
       </Provider>
