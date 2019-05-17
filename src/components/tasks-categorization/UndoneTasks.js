@@ -60,7 +60,7 @@ class UndoneTasks extends Component {
 mapStateToProps = state => {
   return {
     tasks: state.tasks,
-    undoneTasks: state.undoneTasks //TODO: must be ommited
+    undoneTasks: state.undoneTasks //TODO: must be ommited...
   }
 }
 
