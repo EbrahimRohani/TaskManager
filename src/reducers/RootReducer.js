@@ -4,8 +4,6 @@ import * as actions from '../actions';
 
 const initialState = {
     tasks: [],
-    doneTasks: [],
-    undoneTasks: [],
     selectedTask: '',
     id: '',
     title: '',
@@ -17,12 +15,22 @@ const initialState = {
 
 export default (state = initialState, action) => {
     switch (action.type) {
+
+        case actions.RESET_STATES:
+            return {
+                ...state,
+                selectedTask: '',
+                id: '',
+                title: '',
+                description: '',
+                isDone: false,
+                toUpdate: false,
+            }
+
         case actions.ADD_NEW_TASK:
             return {
                 ...state,
                 tasks: [...state.tasks, newTask(action)],
-                doneTasks: action.payload.isDone ? [...state.doneTasks, newTask(action)] : [...state.doneTasks],
-                undoneTasks: action.payload.isDone ? [...state.undoneTasks] : [...state.undoneTasks, newTask(action)],
                 id: '',
                 title: '',
                 description: '',
@@ -58,9 +66,7 @@ export default (state = initialState, action) => {
 
             return {
                 ...state,
-                tasks: onTaskUpdate(state, 'tasks', action),
-                doneTasks: onTaskUpdate(state, 'doneTasks', action),
-                undoneTasks: onTaskUpdate(state, 'undoneTasks', action),
+                tasks: onTaskUpdate(state, action),
                 id: '',
                 title: '',
                 description: '',
@@ -93,14 +99,14 @@ const newTask = (action) => {
 
 
 
-const onTaskUpdate = (state, /* String */ tasks, action) => {
+const onTaskUpdate = (state, action) => {
 
     const updatedItem = (action) => {
         const { title, description, isDone } = action.payload;
         return { title, description, isDone }
     }
 
-    return state[tasks].map(task => {
+    return state.tasks.map(task => {
         if (task.id === action.payload.task.id) {
             return { ...task, ...updatedItem(action) }
         }
@@ -115,5 +121,3 @@ const onTaskDelete = (state, action) => {
         }
     })
 }
-
-//! must make one list instead of three!

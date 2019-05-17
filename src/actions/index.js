@@ -5,6 +5,7 @@ export const SELECT_TASK = 'SELECT_TASK'
 export const UPDATE_TASK = 'UPDATE_TASK'
 export const INITIAL_READING = 'INITIAL_READING'
 export const DELETE_TASK = 'DELETE_TASK'
+export const RESET_STATES = 'RESET_STATES'
 
 const uuidv4 = require('uuid/v4')
 
@@ -44,13 +45,19 @@ export const selectTask = (task) => {
 export const updateTask = (id, task, title, description, isDone) => {
     return {
         type: UPDATE_TASK,
-        payload: {id, task, title, description, isDone}
+        payload: { id, task, title, description, isDone }
     }
 }
 
-export const deleteTask = (task)=>{
+export const deleteTask = (task) => {
     return {
         type: DELETE_TASK,
         payload: task
+    }
+}
+
+export const resetStates = () => {
+    return {
+        type: RESET_STATES
     }
 }

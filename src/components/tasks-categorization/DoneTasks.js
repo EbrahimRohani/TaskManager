@@ -3,7 +3,7 @@ import { View, FlatList } from 'react-native'
 import { connect } from 'react-redux';
 import TaskItem from '../task-item/TaskItem';
 import NoTasksView from '../NoTasksView';
-import { Fab, Icon} from 'native-base';
+import { Fab, Icon } from 'native-base';
 import * as actions from '../../actions'
 
 class DoneTasks extends Component {
@@ -66,7 +66,6 @@ mapStateToProps = state => {
   return {
     selectedTask: state.selectedTask,
     tasks: state.tasks,
-    doneTasks: state.doneTasks //TODO: must be ommited
   }
 }
 

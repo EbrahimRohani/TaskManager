@@ -1,10 +1,23 @@
 import React, { Component } from 'react'
-import { View, StyleSheet, Dimensions } from 'react-native'
+import { StyleSheet, Dimensions } from 'react-native'
 import { Container, Form, Input, Item, ListItem, Label, Content, Header, Body, Text, CheckBox, Button } from 'native-base';
 import { connect } from 'react-redux';
 import * as actions from '../../actions/index'
+import { BackHandler } from 'react-native';
 
 export class TaskDetailView extends Component {
+
+  componentWillMount() {
+    BackHandler.addEventListener('hardwareBackPress', this.handleBackButton)
+  }
+
+  componentWillUnmount() {
+    BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton)
+  }
+
+  handleBackButton = () => {
+    this.props.resetStates()
+  }
 
   addNewTask = () => {
     const { title, description, isDone } = this.props;
@@ -18,7 +31,7 @@ export class TaskDetailView extends Component {
     this.props.navigation.navigate('AllTasks')
   }
 
-  deleteTask = (task) =>{
+  deleteTask = (task) => {
     this.props.deleteTask(task)
     this.props.navigation.navigate('AllTasks')
   }
@@ -50,10 +63,10 @@ export class TaskDetailView extends Component {
               <Text>{this.props.toUpdate ? "Apply Edit" : "Submit"}</Text>
             </Button>
 
-            {this.props.toUpdate && 
-            <Button style={styles.deleteButton} danger={true} onPress={() => this.deleteTask(this.props.selectedTask)} >
-              <Text>Delete</Text>
-            </Button>
+            {this.props.toUpdate &&
+              <Button style={styles.deleteButton} danger={true} onPress={() => this.deleteTask(this.props.selectedTask)} >
+                <Text>Delete</Text>
+              </Button>
             }
 
           </Form>

@@ -10,10 +10,10 @@ class UndoneTasks extends Component {
     tabBarLabel: "Undone"
   }
 
- 
-  getUndoneTasks=()=>{
-    return this.props.tasks.filter(task=>{
-      if(task.isDone === false){
+
+  getUndoneTasks = () => {
+    return this.props.tasks.filter(task => {
+      if (task.isDone === false) {
         return task
       }
     })
