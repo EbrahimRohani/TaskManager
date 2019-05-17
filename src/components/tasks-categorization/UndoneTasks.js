@@ -10,13 +10,13 @@ class UndoneTasks extends Component {
     tabBarLabel: "Undone"
   }
 
-  undoneTaskList = {
-    undoneTasks: this.props.tasks.filter(task => {
-      if (task.isDone === false) {
+ 
+  getUndoneTasks=()=>{
+    return this.props.tasks.filter(task=>{
+      if(task.isDone === false){
         return task
       }
     })
-
   }
 
   initialRender = (tasks) => {
@@ -34,7 +34,7 @@ class UndoneTasks extends Component {
       return (
         <View style={{ flex: 1 }}>
           <FlatList
-            data={this.undoneTaskList.undoneTasks}
+            data={this.getUndoneTasks()}
             renderItem={({ item }) => <TaskItem navigation={this.props.navigation} task={item} />}
             keyExtractor={item => item.id}>
           </FlatList>
@@ -52,7 +52,7 @@ class UndoneTasks extends Component {
 
   render() {
     return (
-      this.initialRender(this.undoneTaskList.undoneTasks)
+      this.initialRender(this.getUndoneTasks())
     )
   }
 }
@@ -60,7 +60,6 @@ class UndoneTasks extends Component {
 mapStateToProps = state => {
   return {
     tasks: state.tasks,
-    undoneTasks: state.undoneTasks //TODO: must be ommited...
   }
 }
 

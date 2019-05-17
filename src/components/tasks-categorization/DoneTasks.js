@@ -3,7 +3,7 @@ import { View, FlatList } from 'react-native'
 import { connect } from 'react-redux';
 import TaskItem from '../task-item/TaskItem';
 import NoTasksView from '../NoTasksView';
-import { Fab, Icon, Button, Text } from 'native-base';
+import { Fab, Icon} from 'native-base';
 import * as actions from '../../actions'
 
 class DoneTasks extends Component {
@@ -11,15 +11,15 @@ class DoneTasks extends Component {
     tabBarLabel: "Done"
   }
 
- 
 
-  doneTasksList = {
-    doneTasks: this.props.tasks.filter(task => {
+
+  getDoneList = () => {
+    return this.props.tasks.filter(task => {
       if (task.isDone === true) {
         return task
       }
     })
-  } 
+  }
 
   initialRender = (tasks) => {
     if (tasks.length === 0) {
@@ -36,7 +36,7 @@ class DoneTasks extends Component {
       return (
         <View style={{ flex: 1 }}>
           <FlatList
-            data={this.doneTasksList.doneTasks}
+            data={this.getDoneList()}
             renderItem={({ item }) => <TaskItem navigation={this.props.navigation} task={item} />}
             keyExtractor={item => item.id}>
           </FlatList>
@@ -47,21 +47,14 @@ class DoneTasks extends Component {
             <Icon name='add' />
           </Fab>
 
-          <Button>
-            {console.log(this.doneTasksList.doneTasks)}
-            <Text>TESTING</Text>
-          </Button> 
-
         </View>
       )
     }
   }
 
-  //! Button TESTING Must be deleted before push
-
   render() {
     return (
-      this.initialRender(this.doneTasksList.doneTasks)
+      this.initialRender(this.getDoneList())
     )
   }
 }
@@ -78,5 +71,3 @@ mapStateToProps = state => {
 }
 
 export default connect(mapStateToProps, actions)(DoneTasks)
-
-   //! Must consider updating list on component rendering
